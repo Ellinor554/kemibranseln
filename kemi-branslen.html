@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kemi – Fossila och förnybara bränslen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream:      #F5EADA;
+      --brown-dark: #2E1A0F;
+      --brown-mid:  #6B3F22;
+      --brown-warm: #9C5D38;
+      --amber:      #C9873E;
+      --amber-light:#E8B87A;
+      --text:       #2E1A0F;
+      --text-light: #F5EADA;
+      --border:     #B07A4E;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background-color: var(--brown-dark);
+      border-bottom: 6px solid var(--amber);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    header .overline {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      line-height: 1.25;
+    }
+
+    header h1 span {
+      display: block;
+      font-size: 0.6em;
+      font-weight: 400;
+      color: var(--amber-light);
+      letter-spacing: 0.12em;
+      margin-top: 0.4rem;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      background-color: var(--brown-mid);
+      border-bottom: 3px solid var(--amber);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    nav ul li a {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 1.1rem 2.4rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    nav ul li:first-child a { border-left: 1px solid rgba(255,255,255,0.1); }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: var(--amber);
+      color: var(--brown-dark);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--brown-mid);
+      border-bottom: 2px solid var(--amber);
+      padding-bottom: 0.6rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PLACEHOLDER ── */
+    .placeholder {
+      background-color: rgba(201, 135, 62, 0.08);
+      border: 1.5px dashed var(--border);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--brown-warm);
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── WELCOME (startskärm) ── */
+    #welcome {
+      display: block;
+      text-align: center;
+      padding-top: 1rem;
+    }
+
+    #welcome .welcome-icon {
+      font-size: 3rem;
+      margin-bottom: 1.2rem;
+      opacity: 0.6;
+    }
+
+    #welcome h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--brown-mid);
+      margin-bottom: 1rem;
+      letter-spacing: 0.08em;
+    }
+
+    #welcome p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #5C3A22;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    #welcome .nav-hint {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    #welcome .nav-hint button {
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: var(--brown-mid);
+      color: var(--cream);
+      border: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    #welcome .nav-hint button:hover {
+      background-color: var(--amber);
+      color: var(--brown-dark);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--brown-warm);
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="overline">Naturvetenskap · Åk 4–6</p>
+    <h1>
+      Kemi
+      <span>Fossila &amp; förnybara bränslen</span>
+    </h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#" data-section="begrepp">Begreppsträning</a></li>
+      <li><a href="#" data-section="fakta">Faktasidor</a></li>
+      <li><a href="#" data-section="quiz">Quiz</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <div id="welcome">
+      <div class="welcome-icon">🔬</div>
+      <h2>Välkommen till kursmaterialet</h2>
+      <p>Här hittar du material om fossila och förnybara bränslen. Välj ett avsnitt i menyn för att komma igång.</p>
+      <div class="nav-hint">
+        <button data-section="begrepp">Begreppsträning</button>
+        <button data-section="fakta">Faktasidor</button>
+        <button data-section="quiz">Quiz</button>
+      </div>
+    </div>
+
+    <section id="begrepp" class="section">
+      <h2 class="section-title">Begreppsträning</h2>
+      <div class="placeholder">Innehåll läggs till här</div>
+    </section>
+
+    <section id="fakta" class="section">
+      <h2 class="section-title">Faktasidor</h2>
+      <div class="placeholder">Innehåll läggs till här</div>
+    </section>
+
+    <section id="quiz" class="section">
+      <h2 class="section-title">Quiz</h2>
+      <div class="placeholder">Innehåll läggs till här</div>
+    </section>
+
+  </main>
+
+  <footer>Kemi &mdash; Fossila &amp; förnybara bränslen</footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const welcome  = document.getElementById('welcome');
+    const navLinks = document.querySelectorAll('[data-section]');
+
+    function showSection(id) {
+      welcome.style.display = 'none';
+      sections.forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+
+      const activeLink = document.querySelector(`nav a[data-section="${id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+
+    navLinks.forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(el.dataset.section);
+      });
+    });
+  </script>
+
+</body>
+</html>
