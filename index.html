@@ -70,17 +70,22 @@
     nav {
       background-color: var(--brown-mid);
       border-bottom: 3px solid var(--amber);
+      position: relative;
+      z-index: 200;
     }
 
-    nav ul {
+    nav > ul {
       list-style: none;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 0;
     }
 
-    nav ul li a {
+    nav > ul > li {
+      position: relative;
+    }
+
+    nav > ul > li > a {
       display: block;
       font-family: 'Cinzel', serif;
       font-size: 0.88rem;
@@ -93,29 +98,62 @@
       transition: background-color 0.2s, color 0.2s;
     }
 
-    nav ul li:first-child a { border-left: 1px solid rgba(255,255,255,0.1); }
+    nav > ul > li:first-child > a {
+      border-left: 1px solid rgba(255,255,255,0.1);
+    }
 
-    nav ul li a:hover,
-    nav ul li a.active {
+    nav > ul > li > a:hover,
+    nav > ul > li > a.active {
+      background-color: var(--amber);
+      color: var(--brown-dark);
+    }
+
+    /* ── DROPDOWN ── */
+    nav > ul > li .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--brown-dark);
+      border: 1px solid var(--amber);
+      border-top: 2px solid var(--amber);
+      min-width: 210px;
+      list-style: none;
+    }
+
+    nav > ul > li:hover .dropdown,
+    nav > ul > li.open .dropdown {
+      display: block;
+    }
+
+    nav .dropdown li a {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      text-decoration: none;
+      padding: 0.85rem 1.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    nav .dropdown li a:hover {
       background-color: var(--amber);
       color: var(--brown-dark);
     }
 
     /* ── MAIN ── */
     main {
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 3rem 2rem 4rem;
     }
 
     /* ── SECTIONS ── */
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
+    .section { display: none; }
+    .section.active { display: block; }
 
     .section-title {
       font-family: 'Cinzel', serif;
@@ -140,7 +178,7 @@
       letter-spacing: 0.03em;
     }
 
-    /* ── WELCOME (startskärm) ── */
+    /* ── WELCOME ── */
     #welcome {
       display: block;
       text-align: center;
@@ -197,6 +235,469 @@
       color: var(--brown-dark);
     }
 
+    /* ── BEGREPP OVERVIEW ── */
+    .begrepp-overview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .begrepp-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
+      padding: 1.2rem 1.6rem;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      min-width: 180px;
+    }
+
+    .begrepp-card:hover {
+      border-color: var(--amber);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .begrepp-card-title {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--brown-mid);
+      margin-bottom: 0.3rem;
+    }
+
+    .begrepp-card-desc {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--brown-warm);
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--brown-warm);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      margin-bottom: 1.8rem;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .back-btn:hover {
+      background-color: var(--brown-mid);
+      color: var(--cream);
+    }
+
+    /* ── BEGREPPSSPEL ── */
+    .bg-game .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 2rem;
+    }
+
+    .bg-game .col-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a8a7a;
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .bg-game .col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .bg-game .card {
+      background: #fff;
+      border: 1.5px solid #d4cbbf;
+      border-radius: 5px;
+      padding: 0.7rem 0.9rem;
+      padding-right: 2.2rem;
+      cursor: grab;
+      transition: border-color 0.12s, box-shadow 0.12s, background 0.12s, opacity 0.12s;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      position: relative;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .bg-game .card.term { font-weight: 600; }
+
+    .bg-game .card:hover:not(.locked) {
+      border-color: #9b7a55;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+    }
+
+    .bg-game .card.dragging { opacity: 0.35; cursor: grabbing; }
+
+    .bg-game .card.dragover {
+      border-color: #8a6035;
+      background: #fdf6ed;
+      box-shadow: 0 0 0 2.5px #c9985a;
+    }
+
+    .bg-game .badge {
+      display: none;
+      position: absolute;
+      top: 7px; right: 8px;
+      width: 19px; height: 19px;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      background: #8a6a45;
+      text-align: center;
+      line-height: 19px;
+    }
+
+    .bg-game .card.paired { border-color: #c0b8ae; color: #6a5a4a; }
+    .bg-game .card.paired .badge { display: block; }
+
+    .bg-game .card.correct {
+      background: #edf5ec; border-color: #5a9460; color: #2a4f2e; cursor: default;
+    }
+    .bg-game .card.correct .badge { display: block; background: #5a9460; }
+
+    .bg-game .card.wrong {
+      background: #fcecea; border-color: #b84040; color: #6e1e1e; cursor: default;
+    }
+    .bg-game .card.wrong .badge { display: block; background: #b84040; }
+
+    .bg-game .card.locked { cursor: default; }
+
+    .bg-game .game-hint {
+      font-size: 0.8rem;
+      color: #a09080;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .bg-game .bottom {
+      margin: 2rem 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .bg-game .result {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #3a2b1e;
+      min-height: 1.4rem;
+    }
+
+    .bg-game .actions { display: flex; gap: 0.75rem; }
+
+    .bg-game .btn-check {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.55rem 1.75rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #4a3020;
+      color: #f5efe6;
+      transition: background 0.12s;
+    }
+    .bg-game .btn-check:hover:not(:disabled) { background: #6a4830; }
+    .bg-game .btn-check:disabled { background: #b0a898; cursor: default; }
+
+    .bg-game .btn-reset {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.55rem 1.75rem;
+      border-radius: 4px;
+      background: transparent;
+      color: #7a6a58;
+      border: 1.5px solid #c4bbb0;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .bg-game .btn-reset:hover { background: #e4ddd4; }
+
+    /* Ghost – global fixed */
+    #ghost {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.88;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+      transform: rotate(1.5deg) scale(1.03);
+      border-radius: 5px;
+      background: #fff;
+      border: 1.5px solid #9b7a55;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.5;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #2c2418;
+      display: none;
+    }
+
+    /* ── FAKTASIDOR ── */
+    .fakta-block {
+      background: #fff;
+      border-left: 4px solid var(--amber);
+      border-radius: 0 5px 5px 0;
+      padding: 1.6rem 1.8rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .fakta-h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--brown-mid);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(176, 122, 78, 0.25);
+    }
+
+    .fakta-p {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .fakta-p:last-child { margin-bottom: 0; }
+
+    .fakta-sub-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .fakta-sub {
+      background: rgba(201, 135, 62, 0.07);
+      border-radius: 4px;
+      padding: 0.9rem 1rem;
+    }
+
+    .fakta-sub.fakta-note {
+      background: rgba(184, 64, 64, 0.06);
+      border-left: 3px solid #b84040;
+      border-radius: 0 4px 4px 0;
+      margin-top: 1rem;
+    }
+
+    .fakta-label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brown-warm);
+      margin-bottom: 0.4rem;
+    }
+
+    .fakta-note .fakta-label { color: #8a3a3a; }
+
+    .fakta-h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brown-warm);
+      margin: 1.25rem 0 0.6rem;
+    }
+
+    .fakta-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .fakta-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(176, 122, 78, 0.18);
+      align-items: baseline;
+    }
+    .fakta-item:last-child { border-bottom: none; }
+
+    .fakta-item-term {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brown-mid);
+    }
+
+    .fakta-item-def {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    @media (max-width: 600px) {
+      .fakta-sub-row { grid-template-columns: 1fr; }
+      .fakta-item { grid-template-columns: 1fr; gap: 0.2rem; }
+    }
+
+    /* ── QUIZ ── */
+    .quiz-card-all {
+      border-color: var(--brown-mid);
+      background: rgba(107, 63, 34, 0.04);
+    }
+    .quiz-card-all .begrepp-card-title { color: var(--brown-dark); }
+
+    .quiz-sub-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--brown-mid);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-game {
+      background: #fff;
+      border-radius: 5px;
+      padding: 1.8rem 2rem;
+      border: 1.5px solid #d4cbbf;
+    }
+
+    .quiz-progress { margin-bottom: 1.5rem; }
+
+    .quiz-progress-txt {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--brown-warm);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.45rem;
+    }
+
+    .quiz-bar {
+      height: 5px;
+      background: #e8dfd4;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .quiz-bar-fill {
+      height: 100%;
+      background: var(--amber);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+      width: 0;
+    }
+
+    .quiz-q-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--brown-dark);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .quiz-option {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      text-align: left;
+      background: #fff;
+      border: 1.5px solid #d4cbbf;
+      border-radius: 5px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.12s, background 0.12s;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      border-color: var(--amber);
+      background: rgba(201, 135, 62, 0.05);
+    }
+
+    .quiz-option.correct { background: #edf5ec; border-color: #5a9460; color: #2a4f2e; }
+    .quiz-option.wrong   { background: #fcecea; border-color: #b84040; color: #6e1e1e; }
+    .quiz-option:disabled:not(.correct):not(.wrong) { opacity: 0.45; }
+
+    .quiz-feedback {
+      min-height: 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .feedback-correct { color: #2a6e30; }
+    .feedback-wrong   { color: #8a2020; }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.25rem;
+    }
+
+    .quiz-next-btn {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.8rem;
+      border-radius: 4px;
+      border: none;
+      background: var(--brown-mid);
+      color: var(--cream);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .quiz-next-btn:hover:not(:disabled) { background: var(--brown-dark); }
+    .quiz-next-btn:disabled { background: #b0a898; cursor: default; }
+
+    .quiz-final {
+      text-align: center;
+      padding: 1.5rem 0 0.5rem;
+    }
+
+    .quiz-score-display {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--brown-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-score-msg {
+      font-size: 1rem;
+      color: var(--brown-warm);
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-retry-btn {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.8rem;
+      border-radius: 4px;
+      border: none;
+      background: var(--brown-mid);
+      color: var(--cream);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .quiz-retry-btn:hover { background: var(--brown-dark); }
+
     /* ── FOOTER ── */
     footer {
       text-align: center;
@@ -206,6 +707,10 @@
       padding: 1.5rem;
       border-top: 1px solid var(--border);
       opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      .bg-game .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -221,9 +726,24 @@
 
   <nav>
     <ul>
-      <li><a href="#" data-section="begrepp">Begreppsträning</a></li>
+      <li class="has-dropdown">
+        <a href="#" data-section="begrepp">Begreppsträning</a>
+        <ul class="dropdown">
+          <li><a href="#" data-section="begrepp" data-sub="branslen">Bränslen</a></li>
+          <li><a href="#" data-section="begrepp" data-sub="fossila">Fossila bränslen</a></li>
+        </ul>
+      </li>
       <li><a href="#" data-section="fakta">Faktasidor</a></li>
-      <li><a href="#" data-section="quiz">Quiz</a></li>
+      <li class="has-dropdown">
+        <a href="#" data-section="quiz">Quiz</a>
+        <ul class="dropdown">
+          <li><a href="#" data-section="quiz" data-sub="branslen-kol">Bränslen och kol</a></li>
+          <li><a href="#" data-section="quiz" data-sub="fossila">Fossila bränslen</a></li>
+          <li><a href="#" data-section="quiz" data-sub="biobranslen">Biobränslen &amp; förnybar energi</a></li>
+          <li><a href="#" data-section="quiz" data-sub="alternativ">Bränslen utan kol &amp; alternativ</a></li>
+          <li><a href="#" data-section="quiz" data-sub="allt">Testa allt</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>
 
@@ -240,48 +760,700 @@
       </div>
     </div>
 
+    <!-- ── BEGREPPSTRÄNING ── -->
     <section id="begrepp" class="section">
       <h2 class="section-title">Begreppsträning</h2>
-      <div class="placeholder">Innehåll läggs till här</div>
+
+      <div id="begrepp-overview" class="begrepp-overview">
+        <div class="begrepp-card" data-sub="branslen">
+          <span class="begrepp-card-title">Bränslen</span>
+          <span class="begrepp-card-desc">Para ihop begrepp med rätt förklaring</span>
+        </div>
+        <div class="begrepp-card" data-sub="fossila">
+          <span class="begrepp-card-title">Fossila bränslen</span>
+          <span class="begrepp-card-desc">Para ihop begrepp med rätt förklaring</span>
+        </div>
+      </div>
+
+      <!-- Bränslen -->
+      <div id="begrepp-branslen" class="begrepp-sub" style="display:none">
+        <button class="back-btn">&#8592; Tillbaka</button>
+        <div class="bg-game">
+          <p class="game-hint">Dra ett begrepp och släpp det på rätt förklaring</p>
+          <div class="grid">
+            <div>
+              <p class="col-label">Begrepp</p>
+              <div class="col col-terms"></div>
+            </div>
+            <div>
+              <p class="col-label">Förklaring</p>
+              <div class="col col-defs"></div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="result"></div>
+            <div class="actions">
+              <button class="btn-reset">Börja om</button>
+              <button class="btn-check" disabled>Rätta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fossila bränslen -->
+      <div id="begrepp-fossila" class="begrepp-sub" style="display:none">
+        <button class="back-btn">&#8592; Tillbaka</button>
+        <div class="bg-game">
+          <p class="game-hint">Dra ett begrepp och släpp det på rätt förklaring</p>
+          <div class="grid">
+            <div>
+              <p class="col-label">Begrepp</p>
+              <div class="col col-terms"></div>
+            </div>
+            <div>
+              <p class="col-label">Förklaring</p>
+              <div class="col col-defs"></div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="result"></div>
+            <div class="actions">
+              <button class="btn-reset">Börja om</button>
+              <button class="btn-check" disabled>Rätta</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- ── FAKTASIDOR ── -->
     <section id="fakta" class="section">
       <h2 class="section-title">Faktasidor</h2>
-      <div class="placeholder">Innehåll läggs till här</div>
+
+      <!-- Block 1 -->
+      <div class="fakta-block">
+        <h3 class="fakta-h3">Bränslen och kol</h3>
+        <p class="fakta-p">Alla bränslen innehåller lagrad kemisk energi som omvandlas till värme och koldioxid vid förbränning.</p>
+        <p class="fakta-p">Kol (C) är ett mångsidigt grundämne som enkelt binder sig till andra atomslag och bildar nästan 10 miljoner kända kemiska föreningar.</p>
+        <p class="fakta-p">Fotosyntesen är grunden för livet: växter omvandlar koldioxid och vatten till druvsocker, vilket i sin tur ger oss de kolföreningar (proteiner, kolhydrater, fetter) vi behöver via maten.</p>
+      </div>
+
+      <!-- Block 2 -->
+      <div class="fakta-block">
+        <h3 class="fakta-h3">Fossila bränslen</h3>
+        <div class="fakta-sub-row">
+          <div class="fakta-sub">
+            <span class="fakta-label">Ursprung</span>
+            <p class="fakta-p">Bildades under miljontals år av döda växter och djur som utsattes för högt tryck och hög temperatur djupt i jordskorpan.</p>
+          </div>
+          <div class="fakta-sub">
+            <span class="fakta-label">Klimatpåverkan</span>
+            <p class="fakta-p">De kolatomer som legat bundna i marken släpps ut som koldioxid i atmosfären vid förbränning, vilket förstärker växthuseffekten och gör jorden varmare.</p>
+          </div>
+        </div>
+        <h4 class="fakta-h4">Typer av fossila bränslen</h4>
+        <div class="fakta-items">
+          <div class="fakta-item">
+            <span class="fakta-item-term">Stenkol</span>
+            <span class="fakta-item-def">Fast bergart bildad av uråldriga våtmarksväxter. Bryts i gruvor eller nära markytan.</span>
+          </div>
+          <div class="fakta-item">
+            <span class="fakta-item-term">Råolja</span>
+            <span class="fakta-item-def">Flytande blandning av kolföreningar från plankton och alger. Förädlas till bensin, diesel, flygbränsle, eldningsolja, asfalt och plast.</span>
+          </div>
+          <div class="fakta-item">
+            <span class="fakta-item-term">Fossilgas</span>
+            <span class="fakta-item-def">Gasformigt bränsle som ofta hittas i fickor nära oljan.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 3 -->
+      <div class="fakta-block">
+        <h3 class="fakta-h3">Biobränslen &amp; förnybar energi</h3>
+        <div class="fakta-sub">
+          <span class="fakta-label">Naturlopp</span>
+          <p class="fakta-p">Biobränslen tillverkas av förnybart material från levande växter eller djur. De ingår i ett kretslopp där växterna återupptar den koldioxid som släpps ut vid förbränningen, vilket gör att mängden koldioxid i atmosfären inte nettomässigt ökar.</p>
+        </div>
+        <h4 class="fakta-h4">Exempel på biobränslen</h4>
+        <div class="fakta-items">
+          <div class="fakta-item">
+            <span class="fakta-item-term">Biogas</span>
+            <span class="fakta-item-def">Består främst av metan och framställs när mikroorganismer bryter ner avfall utan syre (anaerob miljö).</span>
+          </div>
+          <div class="fakta-item">
+            <span class="fakta-item-term">Bioetanol</span>
+            <span class="fakta-item-def">Framställs genom att jästbakterier omvandlar socker från exempelvis sockerrör eller majs.</span>
+          </div>
+          <div class="fakta-item">
+            <span class="fakta-item-term">Biodiesel</span>
+            <span class="fakta-item-def">Görs på växtoljor (rapsolja, palmolja) eller återvunnen frityrolja.</span>
+          </div>
+        </div>
+        <div class="fakta-sub fakta-note">
+          <span class="fakta-label">Nackdelar</span>
+          <p class="fakta-p">Biobränslen kräver stor odlingsmark vilket kan konkurrera med matproduktion eller leda till nedhuggning av regnskog — vilket skadar ekosystem och släpper ut lagrat kol.</p>
+        </div>
+      </div>
+
+      <!-- Block 4 -->
+      <div class="fakta-block">
+        <h3 class="fakta-h3">Bränslen utan kol &amp; alternativ</h3>
+        <div class="fakta-items">
+          <div class="fakta-item">
+            <span class="fakta-item-term">Vätgas (H₂)</span>
+            <span class="fakta-item-def">Ett energirikt bränsle som vid förbränning endast bildar vatten som avgas. Förnybar vätgas kräver dock mycket el för att spjälka vattenmolekyler (H₂O).</span>
+          </div>
+          <div class="fakta-item">
+            <span class="fakta-item-term">Elektricitet</span>
+            <span class="fakta-item-def">Elbilar ersätter fossila drivmedel, men nyttan beror på hur elen tillverkas — grön el från sol, vind och vatten kontra kolkraft. Dessutom krävs ovanliga metaller till batterierna.</span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
+    <!-- ── QUIZ ── -->
     <section id="quiz" class="section">
       <h2 class="section-title">Quiz</h2>
-      <div class="placeholder">Innehåll läggs till här</div>
+
+      <div id="quiz-overview" class="begrepp-overview">
+        <div class="begrepp-card quiz-card" data-quizsub="branslen-kol">
+          <span class="begrepp-card-title">Bränslen och kol</span>
+          <span class="begrepp-card-desc">4 frågor</span>
+        </div>
+        <div class="begrepp-card quiz-card" data-quizsub="fossila">
+          <span class="begrepp-card-title">Fossila bränslen</span>
+          <span class="begrepp-card-desc">5 frågor</span>
+        </div>
+        <div class="begrepp-card quiz-card" data-quizsub="biobranslen">
+          <span class="begrepp-card-title">Biobränslen &amp; förnybar energi</span>
+          <span class="begrepp-card-desc">5 frågor</span>
+        </div>
+        <div class="begrepp-card quiz-card" data-quizsub="alternativ">
+          <span class="begrepp-card-title">Bränslen utan kol &amp; alternativ</span>
+          <span class="begrepp-card-desc">3 frågor</span>
+        </div>
+        <div class="begrepp-card quiz-card quiz-card-all" data-quizsub="allt">
+          <span class="begrepp-card-title">Testa allt</span>
+          <span class="begrepp-card-desc">17 frågor – blandade</span>
+        </div>
+      </div>
+
+      <div id="quiz-container" style="display:none">
+        <button class="back-btn" id="backToQuizOverview">&#8592; Tillbaka</button>
+        <p id="quiz-sub-title" class="quiz-sub-title"></p>
+        <div class="quiz-game">
+          <div class="quiz-progress">
+            <span id="quiz-progress-txt" class="quiz-progress-txt"></span>
+            <div class="quiz-bar"><div id="quiz-bar-fill" class="quiz-bar-fill"></div></div>
+          </div>
+          <div id="quiz-question-wrap">
+            <p id="quiz-q-text" class="quiz-q-text"></p>
+            <div id="quiz-options" class="quiz-options"></div>
+          </div>
+          <div id="quiz-feedback" class="quiz-feedback"></div>
+          <div id="quiz-actions" class="quiz-actions">
+            <button id="quiz-next-btn" class="quiz-next-btn" disabled>Nästa fråga</button>
+          </div>
+          <div id="quiz-final" class="quiz-final" style="display:none">
+            <div id="quiz-score-display" class="quiz-score-display"></div>
+            <p id="quiz-score-msg" class="quiz-score-msg"></p>
+            <button id="quiz-retry-btn" class="quiz-retry-btn">Försök igen</button>
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
 
   <footer>Kemi &mdash; Fossila &amp; förnybara bränslen</footer>
 
+  <div id="ghost"></div>
+
   <script>
-    const sections = document.querySelectorAll('.section');
-    const welcome  = document.getElementById('welcome');
-    const navLinks = document.querySelectorAll('[data-section]');
+  // ── Data ─────────────────────────────────────────────────────────────────────
 
-    function showSection(id) {
-      welcome.style.display = 'none';
-      sections.forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const DATA_BRANSLEN = [
+    { term: "Förbränning",        def: "En typ av kemisk reaktion där ämnen brinner." },
+    { term: "Bränsle",            def: "Ämnen som kan förbrännas eller brinna, till exempel bensin, diesel, biogas och ved." },
+    { term: "Kemisk energi",      def: "Energi som finns lagrad i bränslen. Vid förbränning omvandlas den kemiska energin till värmeenergi." },
+    { term: "Kolatom / Kol",      def: "Ett viktigt grundämne vars atomer lätt binder sig till andra atomer. Kolatomer finns i marken, havet och luften, och allt levande på jorden är uppbyggt av kolföreningar." },
+    { term: "Kolföreningar",      def: "Kemiska föreningar som innehåller kolatomer. Exempel på kolföreningar är proteiner, kolhydrater och fetter." },
+    { term: "Koldioxid",          def: "En molekyl som bildas vid förbränning av kolföreningar och består av kol och syre (en kolatom bundet till två syreatomer)." },
+    { term: "Fotosyntes",         def: "Processen där växter gör om koldioxid till druvsocker med hjälp av solljuset." },
+    { term: "Druvsocker",         def: "En kolförening som växter skapar genom fotosyntesen och som fungerar som byggsten för alla andra kolföreningar som växter och djur behöver." },
+    { term: "Fossila bränslen",   def: "Bränslen som har skapats långt ner under markytan under mycket lång tid. Vid förbränning av fossila bränslen släpps avgaser ut som ökar mängden koldioxid i atmosfären, vilket bidrar till klimatförändringar." },
+    { term: "Förnybara bränslen", def: "Bränslen som inte ökar den totala mängden koldioxid i atmosfären när de används." },
+  ];
 
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
+  const DATA_FOSSILA = [
+    { term: "Stenkol",            def: "Ett fast fossilt bränsle som har bildats av växter som levde i våtmarker för hundratals miljoner år sedan. Bryts i gruvor eller nära markytan." },
+    { term: "Råolja",             def: "Den olja som man borrar upp ur marken eller från havsbotten innan den har renats eller behandlats." },
+    { term: "Fossilgas",          def: "Ett fossilt bränsle i gasform som ofta finns i fickor under marken nära oljan. Används bland annat till matlagning (gasspisar) och uppvärmning." },
+    { term: "Kolföreningar",      def: "Kemiska föreningar som innehåller grundämnet kol. Växter, djur, olja och gas består i stor del av kolföreningar." },
+    { term: "Klimatförändringar", def: "Förändringar i jordens klimat och temperatur. När mängden koldioxid i atmosfären ökar blir jorden varmare." },
+    { term: "Oljeplattform",      def: "En stor plattform eller anläggning byggd i havet för att kunna borra djupt ner i havsbotten och pumpa upp olja och gas." },
+    { term: "Eldningsolja",       def: "En av produkterna som man tillverkar av råolja och som används för att värma upp hus." },
+  ];
 
-      const activeLink = document.querySelector(`nav a[data-section="${id}"]`);
-      if (activeLink) activeLink.classList.add('active');
+  // ── Hjälpfunktioner ──────────────────────────────────────────────────────────
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  // ── Spelmotor ────────────────────────────────────────────────────────────────
+
+  const ghost = document.getElementById('ghost');
+
+  function initGame(container, data) {
+    const termsCol = container.querySelector('.col-terms');
+    const defsCol  = container.querySelector('.col-defs');
+    const resultEl = container.querySelector('.result');
+    const checkBtn = container.querySelector('.btn-check');
+    const resetBtn = container.querySelector('.btn-reset');
+
+    let assignments  = new Map();
+    let badgeCounter = 0;
+    let checked      = false;
+    let dragTermIdx  = null;
+    let dragTermCard = null;
+    let touchOffsetX = 0;
+    let touchOffsetY = 0;
+    let lastTouchDef = null;
+
+    function allTermCards() { return [...termsCol.querySelectorAll('.card')]; }
+    function allDefCards()  { return [...defsCol.querySelectorAll('.card')]; }
+
+    function updateCheckBtn() { checkBtn.disabled = assignments.size === 0; }
+
+    function pairCards(tIdx, dIdx) {
+      if (assignments.has(tIdx)) {
+        const old = assignments.get(tIdx).defDataIdx;
+        allDefCards().forEach(c => {
+          if (+c.dataset.idx === old) { c.classList.remove('paired'); c.querySelector('.badge').textContent = ''; }
+        });
+      }
+      assignments.forEach((val, existingT) => {
+        if (val.defDataIdx === dIdx && existingT !== tIdx) {
+          assignments.delete(existingT);
+          allTermCards().forEach(c => {
+            if (+c.dataset.idx === existingT) { c.classList.remove('paired'); c.querySelector('.badge').textContent = ''; }
+          });
+        }
+      });
+      const badge = assignments.has(tIdx) ? assignments.get(tIdx).badge : ++badgeCounter;
+      assignments.set(tIdx, { defDataIdx: dIdx, badge });
+      allTermCards().forEach(c => { if (+c.dataset.idx === tIdx) { c.classList.add('paired'); c.querySelector('.badge').textContent = badge; } });
+      allDefCards().forEach(c  => { if (+c.dataset.idx === dIdx)  { c.classList.add('paired'); c.querySelector('.badge').textContent = badge; } });
+      updateCheckBtn();
     }
 
-    navLinks.forEach(el => {
-      el.addEventListener('click', e => {
-        e.preventDefault();
-        showSection(el.dataset.section);
+    function showGhost(text, x, y) { ghost.textContent = text; ghost.style.display = 'block'; positionGhost(x, y); }
+    function positionGhost(x, y)   { ghost.style.left = (x - ghost.offsetWidth / 2) + 'px'; ghost.style.top = (y - ghost.offsetHeight / 2) + 'px'; }
+    function hideGhost()            { ghost.style.display = 'none'; }
+
+    function defCardAt(x, y) {
+      ghost.style.display = 'none';
+      const el = document.elementFromPoint(x, y);
+      ghost.style.display = 'block';
+      return el ? el.closest('.col-defs .card') : null;
+    }
+
+    function clearDragover() { allDefCards().forEach(c => c.classList.remove('dragover')); }
+
+    function attachDrag(card, idx) {
+      card.setAttribute('draggable', 'true');
+      card.addEventListener('dragstart', e => {
+        if (checked || card.classList.contains('locked')) { e.preventDefault(); return; }
+        dragTermIdx = idx; dragTermCard = card;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setDragImage(new Image(), 0, 0);
+        showGhost(data[idx].term, e.clientX, e.clientY);
+        setTimeout(() => card.classList.add('dragging'), 0);
       });
+      card.addEventListener('drag', e => { if (e.clientX || e.clientY) positionGhost(e.clientX, e.clientY); });
+      card.addEventListener('dragend', () => {
+        if (dragTermCard) dragTermCard.classList.remove('dragging');
+        hideGhost(); clearDragover(); dragTermIdx = null; dragTermCard = null;
+      });
+    }
+
+    function attachDrop(card, idx) {
+      card.addEventListener('dragover', e => {
+        if (checked || dragTermIdx === null) return;
+        e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+        clearDragover(); card.classList.add('dragover');
+      });
+      card.addEventListener('dragleave', () => card.classList.remove('dragover'));
+      card.addEventListener('drop', e => {
+        e.preventDefault(); card.classList.remove('dragover');
+        if (!checked && dragTermIdx !== null) pairCards(dragTermIdx, idx);
+      });
+    }
+
+    function attachTouch(card, idx) {
+      card.addEventListener('touchstart', e => {
+        if (checked || card.classList.contains('locked')) return;
+        e.preventDefault();
+        const t = e.touches[0], r = card.getBoundingClientRect();
+        touchOffsetX = t.clientX - r.left - r.width / 2;
+        touchOffsetY = t.clientY - r.top - r.height / 2;
+        dragTermIdx = idx; dragTermCard = card;
+        card.classList.add('dragging');
+        showGhost(data[idx].term, t.clientX - touchOffsetX, t.clientY - touchOffsetY);
+      }, { passive: false });
+
+      card.addEventListener('touchmove', e => {
+        if (dragTermIdx === null) return;
+        e.preventDefault();
+        const t = e.touches[0];
+        positionGhost(t.clientX - touchOffsetX, t.clientY - touchOffsetY);
+        clearDragover();
+        const target = defCardAt(t.clientX, t.clientY);
+        if (target && !checked) { target.classList.add('dragover'); lastTouchDef = target; }
+        else lastTouchDef = null;
+      }, { passive: false });
+
+      card.addEventListener('touchend', e => {
+        if (dragTermIdx === null) return;
+        e.preventDefault();
+        const t = e.changedTouches[0];
+        hideGhost(); clearDragover(); card.classList.remove('dragging');
+        const target = defCardAt(t.clientX, t.clientY) || lastTouchDef;
+        if (target && !checked) pairCards(dragTermIdx, +target.dataset.idx);
+        dragTermIdx = null; dragTermCard = null; lastTouchDef = null;
+      }, { passive: false });
+
+      card.addEventListener('touchcancel', () => {
+        hideGhost(); clearDragover();
+        if (dragTermCard) dragTermCard.classList.remove('dragging');
+        dragTermIdx = null; dragTermCard = null; lastTouchDef = null;
+      });
+    }
+
+
+
+    function build() {
+      assignments.clear(); badgeCounter = 0; checked = false;
+      dragTermIdx = null; dragTermCard = null; lastTouchDef = null;
+      hideGhost(); resultEl.textContent = ''; checkBtn.disabled = true;
+
+      const termOrder = shuffle(data.map((_, i) => i));
+      const defOrder  = shuffle(data.map((_, i) => i));
+      termsCol.innerHTML = ''; defsCol.innerHTML = '';
+
+      termOrder.forEach(idx => {
+        const card = document.createElement('div');
+        card.className = 'card term'; card.dataset.idx = idx;
+        card.innerHTML = `<span class="badge"></span>${data[idx].term}`;
+        attachDrag(card, idx); attachTouch(card, idx);
+        termsCol.appendChild(card);
+      });
+
+      defOrder.forEach(idx => {
+        const card = document.createElement('div');
+        card.className = 'card'; card.dataset.idx = idx;
+        card.innerHTML = `<span class="badge"></span>${data[idx].def}`;
+        attachDrop(card, idx);
+        defsCol.appendChild(card);
+      });
+    }
+
+    checkBtn.addEventListener('click', () => {
+      if (assignments.size === 0 || checked) return;
+      checked = true;
+      let correct = 0;
+      assignments.forEach(({ defDataIdx, badge }, termIdx) => {
+        const ok = termIdx === defDataIdx;
+        if (ok) correct++;
+        allTermCards().forEach(c => {
+          if (+c.dataset.idx === termIdx) { c.classList.remove('paired'); c.classList.add(ok ? 'correct' : 'wrong', 'locked'); c.setAttribute('draggable', 'false'); }
+        });
+        allDefCards().forEach(c => {
+          if (+c.dataset.idx === defDataIdx) { c.classList.remove('paired'); c.classList.add(ok ? 'correct' : 'wrong', 'locked'); }
+        });
+      });
+      const total = assignments.size;
+      resultEl.textContent = correct === data.length
+        ? 'Alla rätt! Bra jobbat.'
+        : total < data.length
+          ? `${correct} av ${total} parade rätt – du hoppade över ${data.length - total} st.`
+          : `${correct} av ${total} rätt.`;
+      checkBtn.disabled = true;
     });
+
+    resetBtn.addEventListener('click', build);
+    return build;
+  }
+
+  // Initiera spel (lazy – byggs när sub-sektion öppnas)
+  const games = {
+    branslen: null,
+    fossila:  null,
+  };
+
+  // ── Navigation ───────────────────────────────────────────────────────────────
+
+  const welcome  = document.getElementById('welcome');
+  const sections = document.querySelectorAll('.section');
+
+  function showSection(id, sub) {
+    welcome.style.display = 'none';
+    sections.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav > ul > li > a').forEach(a => a.classList.remove('active'));
+
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+
+    const activeLink = document.querySelector(`nav > ul > li > a[data-section="${id}"]`);
+    if (activeLink) activeLink.classList.add('active');
+
+    if (id === 'begrepp') showBegreppSub(sub || null);
+    if (id === 'quiz')    showQuizSub(sub || null);
+  }
+
+  function showBegreppSub(sub) {
+    document.getElementById('begrepp-overview').style.display = sub ? 'none' : 'flex';
+    document.querySelectorAll('.begrepp-sub').forEach(el => el.style.display = 'none');
+
+    if (sub) {
+      const el = document.getElementById('begrepp-' + sub);
+      if (el) {
+        el.style.display = 'block';
+        // Lazy-init spelet första gången det visas
+        if (!games[sub]) {
+          const data = sub === 'branslen' ? DATA_BRANSLEN : DATA_FOSSILA;
+          games[sub] = initGame(el, data);
+        }
+        games[sub](); // bygg/återbygg spelet
+      }
+    }
+  }
+
+  document.querySelectorAll('[data-section]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      showSection(el.dataset.section, el.dataset.sub);
+      document.querySelectorAll('nav li.open').forEach(li => li.classList.remove('open'));
+    });
+  });
+
+  document.querySelectorAll('.begrepp-card[data-sub]').forEach(card => {
+    card.addEventListener('click', () => showBegreppSub(card.dataset.sub));
+  });
+
+  document.querySelectorAll('#begrepp .back-btn').forEach(btn => {
+    btn.addEventListener('click', () => showBegreppSub(null));
+  });
+
+  // ── Quiz data ─────────────────────────────────────────────────────────────
+
+  const QUIZ_SETS = {
+    'branslen-kol': {
+      title: 'Bränslen och kol',
+      questions: [
+        { q: "Vad omvandlas kemisk energi till vid förbränning?",
+          opts: ["Ljus och vatten", "Värme och koldioxid", "Syre och kväve", "Druvsocker och syre"],
+          a: "Värme och koldioxid" },
+        { q: "Ungefär hur många kända kemiska föreningar bildar grundämnet kol?",
+          opts: ["Nästan 100 000", "Nästan 1 miljon", "Nästan 10 miljoner", "Nästan 1 miljard"],
+          a: "Nästan 10 miljoner" },
+        { q: "Vad omvandlar växter koldioxid och vatten till vid fotosyntesen?",
+          opts: ["Druvsocker och syre", "Proteiner och kväve", "Koldioxid och energi", "Kolföreningar och vatten"],
+          a: "Druvsocker och syre" },
+        { q: "Vilka kolföreningar får vi från maten?",
+          opts: ["Glukos, fruktos och laktos", "Proteiner, kolhydrater och fetter", "Aminosyror, enzymer och hormoner", "Koldioxid, vatten och energi"],
+          a: "Proteiner, kolhydrater och fetter" },
+      ]
+    },
+    'fossila': {
+      title: 'Fossila bränslen',
+      questions: [
+        { q: "Hur bildades fossila bränslen?",
+          opts: ["Av vulkanisk aktivitet under tusentals år", "Av döda växter och djur under högt tryck och temperatur djupt i jordskorpan", "Av mineralämnen i havet under hundra år", "Av kolatomer i atmosfären"],
+          a: "Av döda växter och djur under högt tryck och temperatur djupt i jordskorpan" },
+        { q: "Vilket fossilt bränsle är i fast form?",
+          opts: ["Råolja", "Fossilgas", "Eldningsolja", "Stenkol"],
+          a: "Stenkol" },
+        { q: "Vad kan råolja förädlas till?",
+          opts: ["Bara bensin och diesel", "Biogas och bioetanol", "Bensin, diesel, flygbränsle, eldningsolja, asfalt och plast", "Vätgas och elektricitet"],
+          a: "Bensin, diesel, flygbränsle, eldningsolja, asfalt och plast" },
+        { q: "Varför bidrar fossila bränslen till klimatförändringar?",
+          opts: ["De förbrukar syre i atmosfären", "De släpper ut koldioxid som legat bunden i marken", "De producerar giftiga kväve- och svavelgaser", "De värmer marken direkt genom strålning"],
+          a: "De släpper ut koldioxid som legat bunden i marken" },
+        { q: "Var hittas fossilgas oftast?",
+          opts: ["I vulkaner", "I stenkolsgruvor", "I havsströmmar", "I fickor nära råoljan"],
+          a: "I fickor nära råoljan" },
+      ]
+    },
+    'biobranslen': {
+      title: 'Biobränslen & förnybar energi',
+      questions: [
+        { q: "Varför ökar inte biobränslen nettomängden koldioxid i atmosfären?",
+          opts: ["De förbränns inte fullständigt", "De innehåller inget kol", "De förbränns vid lägre temperatur", "Växterna återupptar den koldioxid som släpps ut"],
+          a: "Växterna återupptar den koldioxid som släpps ut" },
+        { q: "Av vad framställs biogas?",
+          opts: ["Växtoljor och frityrolja", "Socker från sockerrör eller majs", "Avfall som bryts ner av mikroorganismer utan syre", "Vätgas och vatten"],
+          a: "Avfall som bryts ner av mikroorganismer utan syre" },
+        { q: "Av vad görs bioetanol?",
+          opts: ["Växtoljor", "Metan från soptippar", "Socker från t.ex. sockerrör eller majs via jästbakterier", "Återvunnen frityrolja"],
+          a: "Socker från t.ex. sockerrör eller majs via jästbakterier" },
+        { q: "Vad är en nackdel med biobränslen?",
+          opts: ["De producerar mer koldioxid än fossila bränslen", "De kan inte användas i vanliga motorer", "De kräver stor odlingsmark som kan konkurrera med matproduktion", "De är alltid dyrare än fossila bränslen"],
+          a: "De kräver stor odlingsmark som kan konkurrera med matproduktion" },
+        { q: "Av vad görs biodiesel?",
+          opts: ["Sockerrör och majs", "Metan från anaerob nedbrytning", "Vätgas och vatten", "Växtoljor eller återvunnen frityrolja"],
+          a: "Växtoljor eller återvunnen frityrolja" },
+      ]
+    },
+    'alternativ': {
+      title: 'Bränslen utan kol & alternativ',
+      questions: [
+        { q: "Vad bildas när vätgas (H₂) förbränns?",
+          opts: ["Koldioxid och vatten", "Kväve och syre", "Koldioxid och kväve", "Bara vatten"],
+          a: "Bara vatten" },
+        { q: "Vad krävs för att producera förnybar vätgas?",
+          opts: ["Råolja", "Fossila bränslen som råvara", "Mycket el för att spjälka vattenmolekyler (H₂O)", "Direkt solenergi utan omvandling"],
+          a: "Mycket el för att spjälka vattenmolekyler (H₂O)" },
+        { q: "Varför är det inte alltid miljövänligt med elbilar?",
+          opts: ["Elbilar producerar avgaser vid låg temperatur", "Nyttan beror på hur elen tillverkas och batterierna kräver ovanliga metaller", "Elbilar är alltid sämre än fossildrivna bilar", "Elbilar använder fossila bränslen som reservkraft"],
+          a: "Nyttan beror på hur elen tillverkas och batterierna kräver ovanliga metaller" },
+      ]
+    },
+  };
+
+  QUIZ_SETS['allt'] = {
+    title: 'Testa allt',
+    questions: [
+      ...QUIZ_SETS['branslen-kol'].questions,
+      ...QUIZ_SETS['fossila'].questions,
+      ...QUIZ_SETS['biobranslen'].questions,
+      ...QUIZ_SETS['alternativ'].questions,
+    ]
+  };
+
+  // ── Quiz engine ───────────────────────────────────────────────────────────
+
+  let currentQuizKey = null;
+  let currentQs      = [];
+  let currentQIdx    = 0;
+  let quizScore      = 0;
+  let quizAnswered   = false;
+
+  const quizContainer = document.getElementById('quiz-container');
+  const quizOverview  = document.getElementById('quiz-overview');
+  const qProgressTxt  = document.getElementById('quiz-progress-txt');
+  const qBarFill      = document.getElementById('quiz-bar-fill');
+  const qSubTitle     = document.getElementById('quiz-sub-title');
+  const qText         = document.getElementById('quiz-q-text');
+  const qOptions      = document.getElementById('quiz-options');
+  const qFeedback     = document.getElementById('quiz-feedback');
+  const qNextBtn      = document.getElementById('quiz-next-btn');
+  const qQuestionWrap = document.getElementById('quiz-question-wrap');
+  const qActions      = document.getElementById('quiz-actions');
+  const qFinal        = document.getElementById('quiz-final');
+  const qScoreDisplay = document.getElementById('quiz-score-display');
+  const qScoreMsg     = document.getElementById('quiz-score-msg');
+  const qRetryBtn     = document.getElementById('quiz-retry-btn');
+
+  function startQuiz(key) {
+    currentQuizKey = key;
+    const set = QUIZ_SETS[key];
+    currentQs   = shuffle([...set.questions]);
+    currentQIdx = 0;
+    quizScore   = 0;
+
+    qSubTitle.textContent = set.title;
+    qFinal.style.display        = 'none';
+    qQuestionWrap.style.display = 'block';
+    qActions.style.display      = 'flex';
+    qFeedback.textContent       = '';
+    qFeedback.className         = 'quiz-feedback';
+    showQQuestion();
+  }
+
+  function showQQuestion() {
+    quizAnswered = false;
+    const q     = currentQs[currentQIdx];
+    const total = currentQs.length;
+
+    qProgressTxt.textContent = `Fråga ${currentQIdx + 1} av ${total}`;
+    qBarFill.style.width     = `${(currentQIdx / total) * 100}%`;
+    qText.textContent        = q.q;
+    qFeedback.textContent    = '';
+    qFeedback.className      = 'quiz-feedback';
+    qNextBtn.disabled        = true;
+    qNextBtn.textContent     = currentQIdx === total - 1 ? 'Se resultat' : 'Nästa fråga';
+
+    qOptions.innerHTML = '';
+    shuffle([...q.opts]).forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className   = 'quiz-option';
+      btn.textContent = opt;
+      btn.addEventListener('click', () => selectQOption(btn, opt === q.a, q.a));
+      qOptions.appendChild(btn);
+    });
+  }
+
+  function selectQOption(btn, isCorrect, correctText) {
+    if (quizAnswered) return;
+    quizAnswered = true;
+    if (isCorrect) quizScore++;
+
+    qOptions.querySelectorAll('.quiz-option').forEach(b => {
+      b.disabled = true;
+      if (b.textContent === correctText) b.classList.add('correct');
+      else if (b === btn && !isCorrect)  b.classList.add('wrong');
+    });
+
+    qFeedback.textContent = isCorrect ? 'Rätt!' : 'Fel – rätt svar är markerat i grönt.';
+    qFeedback.className   = 'quiz-feedback ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+    qNextBtn.disabled     = false;
+  }
+
+  qNextBtn.addEventListener('click', () => {
+    currentQIdx++;
+    if (currentQIdx >= currentQs.length) showQFinal();
+    else showQQuestion();
+  });
+
+  function showQFinal() {
+    qQuestionWrap.style.display = 'none';
+    qActions.style.display      = 'none';
+    qFeedback.textContent       = '';
+    qFeedback.className         = 'quiz-feedback';
+    qFinal.style.display        = 'block';
+
+    const total = currentQs.length;
+    qScoreDisplay.textContent = `${quizScore} / ${total}`;
+    qBarFill.style.width      = '100%';
+    qProgressTxt.textContent  = 'Avklarat!';
+
+    const pct = quizScore / total;
+    qScoreMsg.textContent = pct === 1  ? 'Perfekt! Alla rätt!' :
+                            pct >= 0.8 ? 'Bra jobbat!' :
+                            pct >= 0.6 ? 'Ganska bra – lite mer träning!' :
+                                         'Fortsätt träna – du lär dig!';
+  }
+
+  qRetryBtn.addEventListener('click', () => startQuiz(currentQuizKey));
+
+  function showQuizSub(sub) {
+    quizOverview.style.display  = sub ? 'none' : 'flex';
+    quizContainer.style.display = sub ? 'block' : 'none';
+    if (sub) startQuiz(sub);
+  }
+
+  document.getElementById('backToQuizOverview').addEventListener('click', () => showQuizSub(null));
+
+  document.querySelectorAll('.quiz-card[data-quizsub]').forEach(card => {
+    card.addEventListener('click', () => showQuizSub(card.dataset.quizsub));
+  });
   </script>
 
 </body>
